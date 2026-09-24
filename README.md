@@ -78,13 +78,14 @@ the workstation's power budget; these are accuracy figures, not CPU latency meas
 On Kevala's separate 864-decision Firefox WebGPU suite, the Q8 pack answered **799/864 (92.48%)**
 correctly with no invalid responses. Its per-suite scores were 100/108 Kevala-authored,
 403/432 SemIf-authored, and 296/324 SemIf perturbation decisions. The complete local pack
-SHA-256 is `fa50a0998428bb3cf575f12e4965a38c8b52ea98caf80204850146c231fd2edb`.
+SHA-256 is `ccbf575a60d33c3cce2b20e76a015b095a0ea149cdc80e29f954ad1ee432c0eb`.
 See Kevala's [benchmark method and raw results](https://github.com/bvolpato/kevala/blob/main/BENCHMARK.md)
 for fixture provenance, option-order checks, and latency limitations.
 
 The frozen-base comparison and Tev transfer and research challenge splits remain in progress.
 Development, test, and browser fixture scores do not establish general reasoning or safety
-performance. The 4B checkpoint and pack have not yet been published to Hugging Face.
+performance. The [4B checkpoint and Q8 pack](https://huggingface.co/bvolpato/bruv1-4b)
+are published with their provenance and evaluation summary.
 
 ### Low-power evaluation
 
