@@ -35,7 +35,9 @@ uv run bruv-eval --recipe recipes/bruv1-4b.json \
   --model runs/bruv1-4b-tev1/merged
 ```
 
-The first command scores the frozen Qwen checkpoint with the same prompt and reader. Evaluate the untouched test and transfer splits in addition to development data. Report source-level accuracy and any changes to the model or prompt before comparing numbers.
+The first command scores the frozen Qwen checkpoint with the same prompt and reader. Evaluate the separate test and transfer splits in addition to development data. Report source-level accuracy and any changes to the model or prompt before comparing numbers.
+
+The pinned training records have no `group_id` overlap or exact `(state, question, options)` duplicate with the development, test, transfer, or research challenge records. These splits still share task families and construction methods, and Tev1 describes its saved evaluations as reused development benchmarks. Use a fresh, independently collected holdout before making deployment claims.
 
 The merged checkpoints are standard Hugging Face Qwen3.5 text models. Kevala can convert either with its architecture-based command:
 
@@ -44,6 +46,27 @@ kevala convert runs/bruv1-0.8b-tev1/merged -o runs/bruv1-0.8b-q8.kevala
 ```
 
 Use Kevala's parity and browser checks before publishing a pack. The `.kevala` binary and source checkpoint are release artifacts, not Git files.
+
+## Published 0.8B result
+
+The [Bruv1-0.8B checkpoint and Q8 pack](https://huggingface.co/bvolpato/bruv1-0.8b) were trained and converted on an NVIDIA GeForce RTX 5070 Ti. All 37,840 records were processed in 4,730 optimizer steps, with effective batch 8. Training took 1,879 seconds and peaked at 6.74 GiB of allocated GPU memory.
+
+| Split | Records | Frozen Qwen3.5-0.8B | Bruv1-0.8B |
+|---|---:|---:|---:|
+| Development | 4,568 | 43.4% | 84.9% |
+| Separate test | 2,800 | 37.7% | 80.1% |
+| Transfer policies and routing | 1,800 | 30.3% | 79.1% |
+| Research classification challenge | 768 | 63.7% | 95.4% |
+
+These are conditional option-choice accuracies for the BF16 merged checkpoint. The [model card](https://huggingface.co/bvolpato/bruv1-0.8b) records provenance, evaluation files, and Q8 conversion parity. Kevala's [decision benchmark](https://github.com/bvolpato/kevala/blob/main/BENCHMARK.md) evaluates the browser pack on different tasks and rotating option orders.
+
+On Kevala's separate 864-decision Firefox WebGPU suite, the released Q8 pack answered 652 correctly (75.46%) with no invalid responses. Its per-suite scores were 98/108 Kevala-authored, 344/432 SemIf-authored, and 210/324 SemIf perturbation decisions. The full pack hash was verified after the run.
+
+## 4B status: evaluation pending
+
+The local 4B run completed all 37,840 training records in one epoch on the RTX 5070 Ti. Its exported BF16 checkpoint scored **4,194/4,568 (91.81%)**\* on the development split. The frozen-base comparison, other evaluation splits, Q8 conversion, and browser checks are pending. The checkpoint remains local, and 4B is not in Kevala's published model catalog.
+
+\* Partial evaluation: development accuracy alone is not a release or cross-model ranking result.
 
 ## Record contract
 
