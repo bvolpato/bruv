@@ -62,11 +62,24 @@ These are conditional option-choice accuracies for the BF16 merged checkpoint. T
 
 On Kevala's separate 864-decision Firefox WebGPU suite, the released Q8 pack answered 652 correctly (75.46%) with no invalid responses. Its per-suite scores were 98/108 Kevala-authored, 344/432 SemIf-authored, and 210/324 SemIf perturbation decisions. The full pack hash was verified after the run.
 
-## 4B status: evaluation pending
+## 4B browser result and remaining evaluation
 
-The local 4B run completed all 37,840 training records in one epoch on the RTX 5070 Ti. Its exported BF16 checkpoint scored **4,194/4,568 (91.81%)**\* on the development split. The frozen-base comparison, other evaluation splits, Q8 conversion, and browser checks are pending. The checkpoint remains local, and 4B is not in Kevala's published model catalog.
+The local 4B run completed all 37,840 training records in one epoch on the RTX 5070 Ti. Its
+exported BF16 checkpoint scored **4,194/4,568 (91.81%)** on development records. Kevala
+converted the merged checkpoint to a 4,751,303,168-byte Q8 pack. Three BF16-to-Q8 reference
+cases matched exact prompt tokens and answer choices, with maximum absolute option-score
+difference 0.019503.
 
-\* Partial evaluation: development accuracy alone is not a release or cross-model ranking result.
+On Kevala's separate 864-decision Firefox WebGPU suite, the Q8 pack answered **799/864 (92.48%)**
+correctly with no invalid responses. Its per-suite scores were 100/108 Kevala-authored,
+403/432 SemIf-authored, and 296/324 SemIf perturbation decisions. The complete local pack
+SHA-256 is `fa50a0998428bb3cf575f12e4965a38c8b52ea98caf80204850146c231fd2edb`.
+See Kevala's [benchmark method and raw results](https://github.com/bvolpato/kevala/blob/main/BENCHMARK.md)
+for fixture provenance, option-order checks, and latency limitations.
+
+The frozen-base comparison and Tev test, transfer, and research challenge splits remain in
+progress. Development and browser fixture scores do not establish general reasoning or safety
+performance. The 4B checkpoint and pack have not yet been published to Hugging Face.
 
 ### Low-power evaluation
 
