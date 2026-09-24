@@ -66,8 +66,8 @@ On Kevala's separate 864-decision Firefox WebGPU suite, the released Q8 pack ans
 
 The local 4B run completed all 37,840 training records in one epoch on the RTX 5070 Ti. Its
 exported BF16 checkpoint scored **4,194/4,568 (91.81%)** on development records. Kevala
-converted the merged checkpoint to a 4,751,303,168-byte Q8 pack. Three BF16-to-Q8 reference
-cases matched exact prompt tokens and answer choices, with maximum absolute option-score
+converted the merged checkpoint to a 4,751,303,168-byte Q8 pack. All 12 scoreable BF16-to-Q8
+reference cases matched exact prompt tokens and answer choices, with maximum absolute option-score
 difference 0.019503.
 
 On Kevala's separate 864-decision Firefox WebGPU suite, the Q8 pack answered **799/864 (92.48%)**
