@@ -127,9 +127,14 @@ def encode_file(
     max_length: int,
     limit: int | None = None,
     prompt_format: str = "kevala-direct-options-v1",
+    offset: int = 0,
 ) -> list[dict]:
+    if offset < 0:
+        raise ValueError("offset must be nonnegative")
     rows = []
-    for record in read_records(path):
+    for index, record in enumerate(read_records(path)):
+        if index < offset:
+            continue
         rows.append(encode_record(record, tokenizer, max_length, prompt_format))
         if limit is not None and len(rows) >= limit:
             break
