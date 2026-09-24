@@ -1,0 +1,25 @@
+[project]
+name = "bruv"
+version = "0.1.0"
+description = "Local training and evaluation of small decision models"
+readme = "README.md"
+requires-python = ">=3.12,<3.15"
+license = "MIT"
+dependencies = [
+  "accelerate>=1.10,<2",
+  "flash-linear-attention[cuda]>=0.5.2",
+  "peft>=0.18,<1",
+  "torch>=2.9,<3",
+  "transformers>=5.17,<6",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.scripts]
+bruv-train = "bruv.train:main"
+bruv-eval = "bruv.evaluate:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bruv"]

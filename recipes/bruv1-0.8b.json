@@ -1,0 +1,18 @@
+{
+  "name": "bruv1-0.8b",
+  "base_model": "Qwen/Qwen3.5-0.8B",
+  "base_revision": "2fc06364715b967f1860aea9cf38778875588b17",
+  "prompt_format": "kevala-direct-options-v1",
+  "data_source": "togethercomputer/tev1",
+  "data_revision": "57399714e6b5ef215c9c821cab35a7d5fbc5482b",
+  "max_length": 2048,
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "learning_rate": 0.00005,
+  "warmup_ratio": 0.03,
+  "batch_size": 2,
+  "gradient_accumulation": 4,
+  "gradient_checkpointing": false,
+  "epochs": 1,
+  "seed": 42
+}

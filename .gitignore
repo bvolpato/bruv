@@ -1,0 +1,6 @@
+.venv/
+data/
+runs/
+*.kevala
+__pycache__/
+.pytest_cache/
