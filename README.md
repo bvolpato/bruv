@@ -62,11 +62,30 @@ These are conditional option-choice accuracies for the BF16 merged checkpoint. T
 
 On Kevala's separate 864-decision Firefox WebGPU suite, the released Q8 pack answered 652 correctly (75.46%) with no invalid responses. Its per-suite scores were 98/108 Kevala-authored, 344/432 SemIf-authored, and 210/324 SemIf perturbation decisions. The full pack hash was verified after the run.
 
-## 4B status: evaluation pending
+## 4B browser result and remaining evaluation
 
-The local 4B run completed all 37,840 training records in one epoch on the RTX 5070 Ti. Its exported BF16 checkpoint scored **4,194/4,568 (91.81%)**\* on the development split. The frozen-base comparison, other evaluation splits, Q8 conversion, and browser checks are pending. The checkpoint remains local, and 4B is not in Kevala's published model catalog.
+The local 4B run completed all 37,840 training records in one epoch on the RTX 5070 Ti. Its
+exported BF16 checkpoint scored **4,194/4,568 (91.81%)** on development records. Kevala
+converted the merged checkpoint to a 4,751,303,168-byte Q8 pack. All 12 scoreable BF16-to-Q8
+reference cases matched exact prompt tokens and answer choices, with maximum absolute option-score
+difference 0.019503.
 
-\* Partial evaluation: development accuracy alone is not a release or cross-model ranking result.
+The BF16 checkpoint answered **2,481/2,800 (88.61%)** on Tev1's separate test split. The
+[saved result](results/bruv1-4b-test.json) includes the source breakdown and hashes of the
+checkpoint and evaluation file. Scoring used two CPU threads and batch size one to stay within
+the workstation's power budget; these are accuracy figures, not CPU latency measurements.
+
+On Kevala's separate 864-decision Firefox WebGPU suite, the Q8 pack answered **799/864 (92.48%)**
+correctly with no invalid responses. Its per-suite scores were 100/108 Kevala-authored,
+403/432 SemIf-authored, and 296/324 SemIf perturbation decisions. The complete local pack
+SHA-256 is `ccbf575a60d33c3cce2b20e76a015b095a0ea149cdc80e29f954ad1ee432c0eb`.
+See Kevala's [benchmark method and raw results](https://github.com/bvolpato/kevala/blob/main/BENCHMARK.md)
+for fixture provenance, option-order checks, and latency limitations.
+
+The frozen-base comparison and Tev transfer and research challenge splits remain in progress.
+Development, test, and browser fixture scores do not establish general reasoning or safety
+performance. The [4B checkpoint and Q8 pack](https://huggingface.co/bvolpato/bruv1-4b)
+are published with their provenance and evaluation summary.
 
 ### Low-power evaluation
 

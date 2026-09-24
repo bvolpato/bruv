@@ -1,0 +1,49 @@
+{
+  "split": "tev1-v2-test",
+  "model": "bvolpato/bruv1-4b",
+  "checkpoint_sha256": "5b44d14703c8ee81b419bdd78f309eb61888a3cdd176d3421216ac08a4e8ff52",
+  "dataset_sha256": "75e3d054bd445da893c2dfbe62fe14a25aa14fad3d8896b72c017ee8f2eda877",
+  "device": "cpu",
+  "batch_size": 1,
+  "threads": 2,
+  "correct": 2481,
+  "total": 2800,
+  "accuracy": 0.8860714285714286,
+  "by_source": {
+    "ag_news": {
+      "correct": 137,
+      "total": 150,
+      "accuracy": 0.9133333333333333
+    },
+    "banking77": {
+      "correct": 179,
+      "total": 200,
+      "accuracy": 0.895
+    },
+    "boolq": {
+      "correct": 176,
+      "total": 200,
+      "accuracy": 0.88
+    },
+    "mnli": {
+      "correct": 275,
+      "total": 300,
+      "accuracy": 0.9166666666666666
+    },
+    "policy_v2": {
+      "correct": 1146,
+      "total": 1200,
+      "accuracy": 0.955
+    },
+    "routing_v2": {
+      "correct": 491,
+      "total": 600,
+      "accuracy": 0.8183333333333334
+    },
+    "sst5": {
+      "correct": 77,
+      "total": 150,
+      "accuracy": 0.5133333333333333
+    }
+  }
+}
