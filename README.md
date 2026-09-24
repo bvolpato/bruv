@@ -68,6 +68,23 @@ The local 4B run completed all 37,840 training records in one epoch on the RTX 5
 
 \* Partial evaluation: development accuracy alone is not a release or cross-model ranking result.
 
+### Low-power evaluation
+
+`bruv-eval` can score the merged checkpoint on CPU with one record per batch. On a shared machine,
+limit inference threads and use `--offset` with `--limit` to save separate, resumable slices:
+
+```bash
+CUDA_VISIBLE_DEVICES=-1 OMP_NUM_THREADS=2 uv run bruv-eval \
+  --recipe recipes/bruv1-4b.json \
+  --data ../tev1/data/v2/records/test.jsonl \
+  --model runs/bruv1-4b-tev1/merged \
+  --device cpu --threads 2 --batch-size 1 --offset 0 --limit 20
+```
+
+The CPU path uses PyTorch reference kernels for Qwen3.5's recurrent layers, even when the CUDA
+FLA package is installed. It is slower than CUDA scoring. Record each slice's offset and size,
+and combine only nonoverlapping slices from the same checkpoint and evaluation file.
+
 ## Record contract
 
 Each JSONL record provides `id`, `state` (text or structured JSON), `question`, `options` with ordered `label` and `description`, and `answer` as the correct letter. `source` enables per-source reporting. The data loader is independent of a named model family. A recipe selects the base checkpoint, revision, prompt format, LoRA settings, and training budget. `kevala-direct-options-v1` is the implemented prompt renderer for this first run; unsupported formats fail explicitly.

@@ -1,6 +1,9 @@
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from unittest.mock import patch
 
-from bruv.data import LETTERS, fit_options
+from bruv.data import LETTERS, encode_file, fit_options
 
 
 class FitOptionsTest(unittest.TestCase):
@@ -19,6 +22,16 @@ class FitOptionsTest(unittest.TestCase):
             adapted["options"][LETTERS.index(adapted["answer"])]["key"], "23"
         )
         self.assertEqual(record["answer"], "X")
+
+    def test_encoded_slices_skip_records_before_the_limit(self):
+        with TemporaryDirectory() as directory:
+            path = Path(directory) / "records.jsonl"
+            path.write_text(''.join(f'{{"id": {index}}}\n' for index in range(5)))
+            with patch("bruv.data.encode_record", side_effect=lambda record, *_: record):
+                self.assertEqual(
+                    [row["id"] for row in encode_file(path, None, 1, limit=2, offset=2)],
+                    [2, 3],
+                )
 
 
 if __name__ == "__main__":
