@@ -70,6 +70,11 @@ converted the merged checkpoint to a 4,751,303,168-byte Q8 pack. All 12 scoreabl
 reference cases matched exact prompt tokens and answer choices, with maximum absolute option-score
 difference 0.019503.
 
+The BF16 checkpoint answered **2,481/2,800 (88.61%)** on Tev1's separate test split. The
+[saved result](results/bruv1-4b-test.json) includes the source breakdown and hashes of the
+checkpoint and evaluation file. Scoring used two CPU threads and batch size one to stay within
+the workstation's power budget; these are accuracy figures, not CPU latency measurements.
+
 On Kevala's separate 864-decision Firefox WebGPU suite, the Q8 pack answered **799/864 (92.48%)**
 correctly with no invalid responses. Its per-suite scores were 100/108 Kevala-authored,
 403/432 SemIf-authored, and 296/324 SemIf perturbation decisions. The complete local pack
@@ -77,8 +82,8 @@ SHA-256 is `fa50a0998428bb3cf575f12e4965a38c8b52ea98caf80204850146c231fd2edb`.
 See Kevala's [benchmark method and raw results](https://github.com/bvolpato/kevala/blob/main/BENCHMARK.md)
 for fixture provenance, option-order checks, and latency limitations.
 
-The frozen-base comparison and Tev test, transfer, and research challenge splits remain in
-progress. Development and browser fixture scores do not establish general reasoning or safety
+The frozen-base comparison and Tev transfer and research challenge splits remain in progress.
+Development, test, and browser fixture scores do not establish general reasoning or safety
 performance. The 4B checkpoint and pack have not yet been published to Hugging Face.
 
 ### Low-power evaluation
