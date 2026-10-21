@@ -1,0 +1,30 @@
+version: 2
+updates:
+  - package-ecosystem: uv
+    directories:
+      - "/"
+    schedule:
+      interval: weekly
+      day: tuesday
+      time: "04:00"
+      timezone: UTC
+    cooldown:
+      default-days: 7
+    groups:
+      dependency-updates:
+        patterns: ["*"]
+    open-pull-requests-limit: 2
+  - package-ecosystem: github-actions
+    directories:
+      - "/"
+    schedule:
+      interval: weekly
+      day: tuesday
+      time: "04:00"
+      timezone: UTC
+    cooldown:
+      default-days: 7
+    groups:
+      dependency-updates:
+        patterns: ["*"]
+    open-pull-requests-limit: 2
