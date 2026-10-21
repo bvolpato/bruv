@@ -23,6 +23,3 @@ bruv-eval = "bruv.evaluate:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/bruv"]
-
-[tool.uv]
-exclude-newer = "7 days"
